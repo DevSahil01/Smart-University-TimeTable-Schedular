@@ -58,7 +58,7 @@ def load_data():
 # Initialize the app
 app = ttk.Window(title="Smart University Timetable", themename="united", size=(800, 600))
 
-app.iconbitmap('logo.ico')
+app.iconbitmap('./Media/logo.ico')
 
 app.state("zoomed")
 
@@ -87,7 +87,7 @@ button_frame = ttk.Frame(app)
 button_frame.grid(row=0, column=1, sticky="ne", padx=20, pady=20)
 
 
-submit_button = ttk.Button(button_frame,padding=(10,20),width=20, text="Add course", bootstyle="success",font=("Arial", 12, "bold"),command=open_course)
+submit_button = ttk.Button(button_frame,padding=(10,20),width=20, text="Add course", bootstyle="success",command=open_course)
 submit_button.pack(pady=20)
 
 
