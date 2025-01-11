@@ -41,7 +41,7 @@ def open_add_subject_form(conn):
     subject_semester_entry = ttk.Entry(add_subject_window, width=30)
     subject_semester_entry.pack(pady=5)
 
-    subject_type_label = ttk.Label(add_subject_window, text="Room Type:", font=("Helvetica", 12))
+    subject_type_label = ttk.Label(add_subject_window, text="Subject Type:", font=("Helvetica", 12))
     subject_type_label.pack(pady=10)
     subject_type_combobox = ttk.Combobox(add_subject_window, values=subject_types, width=30)
     subject_type_combobox.set(subject_types[0])  # Default selection
@@ -74,7 +74,7 @@ def open_add_subject_form(conn):
         else:
             messagebox.showwarning("Input Error", "Please fill all fields.")
 
-    submit_button = ttk.Button(add_subject_window, text="Add subject", bootstyle="success", command=submit_subject)
+    submit_button = ttk.Button(add_subject_window, text="Add subject", bootstyle="primary", command=submit_subject)
     submit_button.pack(pady=20)
 
 

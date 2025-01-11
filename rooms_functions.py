@@ -59,7 +59,7 @@ def open_add_rooms_form(conn):
         else:
             messagebox.showwarning("Input Error", "Please fill all fields.")
 
-    submit_button = ttk.Button(add_rooms_window, text="Add rooms", bootstyle="success", command=submit_rooms)
+    submit_button = ttk.Button(add_rooms_window, text="Add rooms", bootstyle="primary", command=submit_rooms)
     submit_button.pack(pady=20)
 
 

@@ -8,7 +8,7 @@ def open_add_batch_form(conn):
     add_batch_window.geometry("400x300")
 
     width = 400
-    height = 300
+    height = 600
 
     # Get the screen width and height to center the window
     screen_width = add_batch_window.winfo_screenwidth()
@@ -63,17 +63,20 @@ def open_add_batch_form(conn):
         noOfStudents=batch_noOfStudents_entry.get()
         noOfDivisions=batch_noOfDivisions_entry.get()
         noOfPracBatches=batch_noOfBatches_entry.get()
+        course_name=course_type_combobox.get()
 
         if noOfDivisions and noOfStudents and noOfPracBatches:
-            cursor=conn.cursor();
-            cursor.execute("INSERT INTO batch (batch_name)  VALUES (%s)",(batch_name,))
-            conn.commit()
-            messagebox.showinfo("Success", "batch Added Successfully!")
+            course_id=course_ids.get(course_name)
+            if course_id:
+                cursor=conn.cursor();
+                cursor.execute("INSERT INTO batch (batch_year,no_of_students,no_of_divisions,no_of_prac_batches,course_id)  VALUES (%s,%s,%s,%s,%s)",(year,noOfStudents,noOfDivisions,noOfPracBatches,course_id))
+                conn.commit()
+                messagebox.showinfo("Success", "batch Added Successfully!")
             add_batch_window.destroy()
         else:
             messagebox.showwarning("Input Error", "Please fill all fields.")
 
-    submit_button = ttk.Button(add_batch_window, text="Add batch", bootstyle="success", command=submit_batch)
+    submit_button = ttk.Button(add_batch_window, text="Add batch", bootstyle="primary", command=submit_batch)
     submit_button.pack(pady=20)
 
 

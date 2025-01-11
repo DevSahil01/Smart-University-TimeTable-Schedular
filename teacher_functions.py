@@ -94,6 +94,6 @@ def open_add_teacher_form(conn):
         else:
             messagebox.showwarning("Input Error", "Please fill all fields.")
 
-    submit_button = ttk.Button(add_teacher_window, text="Add Course", bootstyle="success", command=submit_teacher)
+    submit_button = ttk.Button(add_teacher_window, text="Add Course", bootstyle="primary", command=submit_teacher)
     submit_button.pack(pady=20)
     add_teacher_window.mainloop()
