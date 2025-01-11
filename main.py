@@ -3,12 +3,12 @@ import ttkbootstrap as ttk
 import threading
 import time
 import tkinter as tk
-from batch_functions import open_add_batch_form
-from connection import create_connection
-from course import open_add_course_form
-from rooms_functions import open_add_rooms_form
-from subject_functions import open_add_subject_form
-from teacher_functions import open_add_teacher_form
+from Adding_Essentials_UI.batch_functions import open_add_batch_form
+from Adding_Essentials_UI.connection import create_connection
+from Adding_Essentials_UI.course import open_add_course_form
+from Adding_Essentials_UI.rooms_functions import open_add_rooms_form
+from Adding_Essentials_UI.subject_functions import open_add_subject_form
+from Adding_Essentials_UI.teacher_functions import open_add_teacher_form
 
 
 
