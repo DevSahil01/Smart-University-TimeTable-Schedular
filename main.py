@@ -83,13 +83,15 @@ def open_add_batch():
     open_add_batch_form(conn)
 
 def open_generate_timetable():
-    open_timetable_attributes(app,conn)
+    open_timetable_attributes(conn)
 
 def open_manage_course():
     open_manage_course_UI(conn)
 
 def open_manage_teacher():
     open_manage_teacher_UI(conn)
+
+
 
 
 app.grid_columnconfigure(0, weight=1, minsize=200)
