@@ -3,12 +3,15 @@ import ttkbootstrap as ttk
 import threading
 import time
 import tkinter as tk
-from Adding_Essentials_UI.batch_functions import open_add_batch_form
-from Adding_Essentials_UI.connection import create_connection
-from Adding_Essentials_UI.course import open_add_course_form
-from Adding_Essentials_UI.rooms_functions import open_add_rooms_form
-from Adding_Essentials_UI.subject_functions import open_add_subject_form
-from Adding_Essentials_UI.teacher_functions import open_add_teacher_form
+from UI_files.batch_functions import open_add_batch_form
+from UI_files.connection import create_connection
+from UI_files.course import open_add_course_form
+from UI_files.manageTeacher import open_manage_teacher_UI
+from UI_files.rooms_functions import open_add_rooms_form
+from UI_files.set_timetable_attributes import open_timetable_attributes
+from UI_files.subject_functions import open_add_subject_form
+from UI_files.teacher_functions import open_add_teacher_form
+from UI_files.manageCourse import open_manage_course_UI
 
 
 
@@ -79,30 +82,65 @@ def open_add_subject():
 def open_add_batch():
     open_add_batch_form(conn)
 
-app.columnconfigure(0, weight=1)
-app.columnconfigure(1, weight=1)
-app.rowconfigure(0, weight=1)
+def open_generate_timetable():
+    open_timetable_attributes(app,conn)
 
-button_frame = ttk.Frame(app)
-button_frame.grid(row=0, column=1, sticky="ne", padx=20, pady=20)
+def open_manage_course():
+    open_manage_course_UI(conn)
+
+def open_manage_teacher():
+    open_manage_teacher_UI(conn)
 
 
-submit_button = ttk.Button(button_frame,padding=(10,20),width=20, text="Add course", bootstyle="success",command=open_course)
+app.grid_columnconfigure(0, weight=1, minsize=200)
+app.grid_columnconfigure(1, weight=1, minsize=200)
+app.grid_columnconfigure(2,weight=1,minsize=200)
+
+# app.rowconfigure(0, weight=1)
+
+right_frame = ttk.Frame(app)
+right_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nswe")
+
+left_frame = ttk.Frame(app)
+left_frame.grid(row=0, column=0, padx=10, pady=10, sticky="nswe")
+
+rightmostFrame = ttk.Frame(app)
+rightmostFrame.grid(row=0, column=2, padx=10, pady=10, sticky="nswe")
+
+
+submit_button = ttk.Button(right_frame,padding=(10,20),width=20, text="Add course", bootstyle="success",command=open_course)
 submit_button.pack(pady=20)
 
 
-submit_button = ttk.Button(button_frame,padding=(10,20),width=20, text="Add Teacher", bootstyle="success",command=open_add_teacher)
+submit_button = ttk.Button(right_frame,padding=(10,20),width=20, text="Add Teacher", bootstyle="success",command=open_add_teacher)
 submit_button.pack(pady=20)
 
-submit_button = ttk.Button(button_frame,padding=(10,20),width=20, text="Add Rooms", bootstyle="success",command=open_add_rooms)
+submit_button = ttk.Button(right_frame,padding=(10,20),width=20, text="Add Rooms", bootstyle="success",command=open_add_rooms)
 submit_button.pack(pady=20)
 
-submit_button = ttk.Button(button_frame,padding=(10,20),width=20, text="Add Subject", bootstyle="success",command=open_add_subject)
+submit_button = ttk.Button(right_frame,padding=(10,20),width=20, text="Add Subject", bootstyle="success",command=open_add_subject)
 submit_button.pack(pady=20)
 
 
-submit_button = ttk.Button(button_frame,padding=(10,20),width=20, text="Add Batch", bootstyle="success",command=open_add_batch)
+submit_button = ttk.Button(right_frame,padding=(10,20),width=20, text="Add Batch", bootstyle="success",command=open_add_batch)
 submit_button.pack(pady=20)
+
+
+#left frame content
+
+submit_button = ttk.Button(left_frame,padding=(10,20),width=20, text="Generate Timetable", bootstyle="warning",command=open_generate_timetable)
+submit_button.pack(pady=20)
+
+#right most content
+
+submit_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage course", bootstyle="primary",command=open_manage_course)
+submit_button.pack(pady=20)
+
+submit_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage teacher", bootstyle="primary",command=open_manage_teacher)
+submit_button.pack(pady=20)
+
+
+
 
 
 # Start the GUI
