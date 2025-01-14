@@ -2,6 +2,7 @@
 import ttkbootstrap as ttk
 import threading
 import time
+from tkinter import messagebox
 import tkinter as tk
 from UI_files.batch_functions import open_add_batch_form
 from UI_files.connection import create_connection
@@ -16,6 +17,8 @@ from UI_files.set_timetable_attributes import open_timetable_attributes
 from UI_files.subject_functions import open_add_subject_form
 from UI_files.teacher_functions import open_add_teacher_form
 from UI_files.manageCourse import open_manage_course_UI
+from UI_files.generate_timetable_window import open_generate_timetable_window_UI
+
 
 
 
@@ -63,6 +66,7 @@ def load_data():
 
 
 # Initialize the app
+
 app = ttk.Window(title="Smart University Timetable", themename="united", size=(800, 600))
 
 app.iconbitmap('./Media/logo.ico')
@@ -108,6 +112,9 @@ def open_manage_subject():
 def open_manage_batch():
     open_manage_batch_UI(conn)
 
+def open_generateTimetable_UI():
+    open_generate_timetable_window_UI(conn)
+
 
 
 
@@ -148,8 +155,12 @@ submit_button.pack(pady=20)
 
 #left frame content
 
-submit_button = ttk.Button(left_frame,padding=(10,20),width=20, text="Generate Timetable", bootstyle="warning",command=open_generate_timetable)
+submit_button = ttk.Button(left_frame,padding=(10,20),width=20, text="Set Attribute", bootstyle="warning",command=open_generate_timetable)
 submit_button.pack(pady=20)
+
+
+generate_button = ttk.Button(left_frame,padding=(10,20),width=20, text="Generate Timetable", bootstyle="warning",command=open_generateTimetable_UI)
+generate_button.pack(pady=20)
 
 #right most content
 

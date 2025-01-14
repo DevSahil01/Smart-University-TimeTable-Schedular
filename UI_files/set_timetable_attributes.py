@@ -87,7 +87,7 @@ def open_timetable_attributes(conn):
         divisions=getDivisions(batch[0])
         prac_batches=getPracticalBatches(batch[1])
         cursor=conn.cursor()
-        cursor.execute("select room_id,room_no from rooms where room_type=(%s)",("practical_lab",))
+        cursor.execute("select room_id,room_no from rooms where room_type=(%s) ",("practical_lab",))
         prac_lab_rooms=cursor.fetchall()
 
         prac_room_num=[room[1] for room in prac_lab_rooms]
@@ -205,7 +205,7 @@ def open_timetable_attributes(conn):
             subject_ids = {subjectID[1]: subjectID[0] for subjectID in subjects_data}
 
             cursor = conn.cursor()
-            cursor.execute("select room_id,room_no from rooms where room_type=(%s)", ("lecture_room",))
+            cursor.execute("SELECT room_id, room_no FROM rooms WHERE room_type IN (%s,%s);", ("lecture_room","seminar_hall"))
             rooms = cursor.fetchall()
 
             room_num = [room[1] for room in rooms]
@@ -332,7 +332,6 @@ def open_timetable_attributes(conn):
                 conn.commit()
             messagebox.showinfo("Success", "Attributes are set Successfully!",parent=add_timetable_window)
             add_timetable_window.destroy()
-            open_generate_timetable_window()
 
 
 
