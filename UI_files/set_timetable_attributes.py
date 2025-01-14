@@ -1,18 +1,8 @@
 import ttkbootstrap as ttk
-<<<<<<< HEAD
-
-
-
-def open_timetable_attributes(root,conn):
-    add_timetable_window = ttk.Toplevel(root)  # Create a new top-level window
-    add_timetable_window.title("Add timetable")
-    add_timetable_window.geometry("400x300")
-
-    width = 900
-=======
 from tkinter import messagebox
 from tkinter import StringVar
 
+from UI_files.generate_timetable_window import open_generate_timetable_window_UI
 from util_constants import getPracticalBatches,getDivisions
 
 
@@ -24,41 +14,13 @@ def open_timetable_attributes(conn):
     add_timetable_window.geometry("1400x700")
 
     width = 1400
->>>>>>> otherUpdates-local
     height = 700
 
     # Get the screen width and height to center the window
     screen_width = add_timetable_window.winfo_screenwidth()
     screen_height = add_timetable_window.winfo_screenheight()
 
-    # Calculate the position to center the window
-    x_position = (screen_width // 2) - (width // 2)
-    y_position = (screen_height // 2) - (height // 2)
-
     # Set the window position and size
-<<<<<<< HEAD
-    add_timetable_window.geometry(f"{width}x{height}+{x_position}+{y_position}")
-
-
-    # Configure grid columns to expand equally
-    add_timetable_window.grid_columnconfigure(0, weight=3)
-    add_timetable_window.grid_columnconfigure(1, weight=3)
-    add_timetable_window.grid_columnconfigure(2, weight=3)
-    add_timetable_window.grid_columnconfigure(3,weight=3)
-
-
-    #left frame for subject input
-    left_frame = ttk.Frame(add_timetable_window, padding=10)
-    left_frame.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
-
-
-
-    #right frame for teacher input
-    right_frame = ttk.Frame(add_timetable_window, padding=10)
-    right_frame.grid(row=1, column=2, sticky="nsew", padx=10, pady=10)
-
-
-=======
     add_timetable_window.geometry(f"{add_timetable_window.winfo_screenwidth()}x{add_timetable_window.winfo_screenheight()}+0+0")
 
     horizontal_frame1 = ttk.Frame(add_timetable_window, padding=10)
@@ -72,34 +34,12 @@ def open_timetable_attributes(conn):
 
     horizontal_frame4 = ttk.Frame(add_timetable_window, padding=10)
     horizontal_frame4.pack(pady=5, padx=20, fill="x")
->>>>>>> otherUpdates-local
 
 
     cursor = conn.cursor()
     cursor.execute("SELECT course_id, course_name FROM course")
     courses = cursor.fetchall()
 
-<<<<<<< HEAD
-    course_names = [course[1] for course in courses]
-    course_ids = {course[1]: course[0] for course in courses}
-
-    # middle frame for normal inputs
-    middle_frame = ttk.Frame(add_timetable_window, padding=10)
-    middle_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
-
-
-    semester_label = ttk.Label(middle_frame, text="Select Semester:", font=("Helvetica", 12))
-    semester_label.grid(pady=10)
-    semester_combobox = ttk.Combobox(middle_frame, values=[1,2,3,4,5,6,7,8], width=30)
-    semester_combobox.set(1)  # Default selection
-    semester_combobox.grid(pady=5)
-
-    course_label = ttk.Label(middle_frame, text="Course Name:", font=("Helvetica", 12))
-    course_label.grid(pady=10)
-    course_combobox = ttk.Combobox(middle_frame, values=course_names, width=30)
-    course_combobox.set(course_names[0])  # Default selection
-    course_combobox.grid(pady=5)
-=======
 
 
     course_names = [course[1] for course in courses]
@@ -128,6 +68,9 @@ def open_timetable_attributes(conn):
     teacher_var=StringVar()
     subject_var = StringVar()
     prac_room_var=StringVar()
+
+
+    batch_id=[]
 
     attribute_data_for_teachers=[]
     attribute_data_for_rooms=[]
@@ -171,8 +114,6 @@ def open_timetable_attributes(conn):
             batch_combobox.pack(side="left", pady=5)
             on_subject_selected.current_dropdown = batch_combobox
 
-            lab_label = ttk.Label(horizontal_frame3, text="Select Lab :", font=("Helvetica", 12))
-            lab_label.pack(side="left", padx=5)
 
             prac_room_combobox = ttk.Combobox(horizontal_frame3, textvariable=prac_room_var, values=prac_room_num, width=30)
             prac_room_combobox.set(prac_room_num[0])
@@ -209,6 +150,8 @@ def open_timetable_attributes(conn):
         # Decide between Division or Batch
         group = division if division else batch
 
+        newAttribute['room_no']=getRoomNumber(division,batch)
+
         # Insert into the Treeview Table
         teacher_table.insert("", "end", values=(teacher, subject, group,getRoomNumber(division,batch)))
 
@@ -231,68 +174,15 @@ def open_timetable_attributes(conn):
             messagebox.showwarning("Input Error","Select all fields",parent=add_timetable_window)
 
 
-
->>>>>>> otherUpdates-local
+    def setBatchId(year,courseId):
+         cursor=conn.cursor()
+         cursor.execute("select batch_id from batch where batch_year=(%s) and course_id=(%s)",(year,courseId))
+         b_id=cursor.fetchall()
+         batch_id.append(b_id[0][0])
 
     def getSubjectAndTeacher():
         course_id=course_ids.get(course_combobox.get())
         cursor = conn.cursor()
-<<<<<<< HEAD
-        cursor.execute("select subject_id,subject_name from subjects where course_id=(%s) and semester=(%s)",
-                       (course_id, semester_combobox.get()))
-        subjects_data = cursor.fetchall()
-
-        cursor=conn.cursor()
-        cursor.execute("select teacher_id,teacher_name from teachers where course_id=(%s)",(course_id,))
-        teachers_data=cursor.fetchall()
-        teachers_names=[teacher[1] for teacher in teachers_data]
-        teachers_ids={teacher_id[1]:teacher_id[0] for teacher_id in teachers_data}
-
-        subject_names = [subject[1] for subject in subjects_data]
-        subject_ids = {subjectID[1]: subjectID[0] for subjectID in subjects_data}
-
-        subject_label = ttk.Label(left_frame, text="Select Subject:", font=("Helvetica", 12))
-        subject_label.grid(pady=10)
-        subject_combobox = ttk.Combobox(left_frame, values=subject_names, width=30)
-        subject_combobox.set(subject_names[0])  # Default selection
-        subject_combobox.grid(pady=5)
-
-        teacher_label = ttk.Label(right_frame, text="Select teacher :", font=("Helvetica", 12))
-        teacher_label.grid(pady=10)
-        teacher_combobox = ttk.Combobox(right_frame, values=teachers_names, width=30)
-        teacher_combobox.set(teachers_names[0])  # Default selection
-        teacher_combobox.grid(pady=5)
-
-    submit_button = ttk.Button(middle_frame, text="Get Fields", bootstyle="primary", command=getSubjectAndTeacher)
-    submit_button.grid(pady=20)
-
-
-    # subject_label = ttk.Label(input_frame, text="Subject Name:")
-    # subject_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
-    #
-    # subject_name = ttk.Entry(input_frame)
-    # subject_name.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
-    #
-    # # Create a label and combobox for Teacher Selection
-    # teacher_label = ttk.Label(input_frame, text="Select Teacher:")
-    # teacher_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
-
-    # Sample list of teachers (can be dynamically fetched from the database)
-    # teachers_list = ["Teacher 1", "Teacher 2", "Teacher 3", "Teacher 4"]
-    #
-    # teacher_combobox = ttk.Combobox(input_frame, values=teachers_list, state="readonly")
-    # teacher_combobox.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
-
-
-
-    # Add timetable Button
-    def set_timetable_attributes():
-            pass
-
-
-    submit_button = ttk.Button(add_timetable_window, text="Set Attributes", bootstyle="primary", command=set_timetable_attributes)
-    submit_button.grid(pady=20)
-=======
         cursor.execute("select subject_id,subject_name,subject_type from subjects where course_id=(%s) and semester=(%s)",
                        (course_id, semester_combobox.get()))
         subjects_data = cursor.fetchall()
@@ -300,7 +190,8 @@ def open_timetable_attributes(conn):
         cursor.execute(
             "SELECT * FROM batch WHERE batch_year=(%s) AND course_id=(%s)",(year,course_ids.get(course_combobox.get())))
         batch_data = cursor.fetchall()
-        # batch_names = [batch[0] for batch in batch_data]
+        setBatchId(year,course_id)
+
 
 
         if len(subjects_data)>0 and len(batch_data):
@@ -394,21 +285,63 @@ def open_timetable_attributes(conn):
     teacher_table.pack(fill="both", expand=True)
 
 
+    def open_generate_timetable_window():
+        open_generate_timetable_window_UI(conn,batch_id)
+
+
 
 
 
     # set Attributes for final timetable
     def set_timetable_attributes():
             cursor=conn.cursor()
+            division = ""
+            batch = ""
+
+            print(attribute_data_for_rooms)
+            # for row in attribute_data_for_rooms:
+            #     div_or_batch=list(row.keys())[0]
+            #     cursor=conn.cursor()
+            #     cursor.execute(
+            #         """INSERT INTO rooms_allotment (room_id, batch_id, div_batch, room_type)
+            #     SELECT r.room_id, (%s), (%s), r.room_type
+            #     FROM rooms r
+            #     WHERE r.room_no = (%s)"""
+            #     ,(batch_id[0],div_or_batch,row[div_or_batch]))
+            #     conn.commit()
+
+
+
+            print(attribute_data_for_teachers)
 
             for row in attribute_data_for_teachers:
-                print(row)
+                if list(row.keys()).__contains__("division"):
+                    division=row['division']
+                else:
+                    batch=row['batch']
+                teacher=list(row.keys())[0]
+                subject=row[teacher]
+                room_number=row['room_no']
+
+                cursor.execute('''INSERT INTO subjecttoteacher (subject_id, teacher_id, batch_id, division, prac_batch, room_id)
+                SELECT s.subject_id, t.teacher_id, (%s), (%s), (%s), r.room_id
+                FROM subjects s
+                JOIN teachers t ON t.teacher_name = (%s)
+                JOIN rooms r ON r.room_no = (%s)
+                WHERE s.subject_name = (%s);''',(batch_id[0],division,batch,teacher,room_number,subject))
+                conn.commit()
+            messagebox.showinfo("Success", "Attributes are set Successfully!",parent=add_timetable_window)
+            add_timetable_window.destroy()
+            open_generate_timetable_window()
+
+
+
+
 
 
     submit_button = ttk.Button(add_timetable_window, text="Set Attributes", bootstyle="primary", command=set_timetable_attributes)
     submit_button.pack(padx=20)
 
->>>>>>> otherUpdates-local
 
 
     add_timetable_window.mainloop()

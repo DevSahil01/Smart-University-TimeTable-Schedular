@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from ttkbootstrap import ttk
 from tkinter import Toplevel, messagebox
 from tkinter.simpledialog import askstring
@@ -126,17 +126,7 @@ def open_manage_teacher_UI(conn):
     # Add a close button
     close_button = ttk.Button(manage_teacher_window, text="Close", bootstyle="danger", command=manage_teacher_window.destroy)
     close_button.pack(pady=10)
-=======
-
-
-def open_manage_teacher_UI(conn):
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM teachers")
-    course_data = cursor.fetchall()
-
-    # write query to get all teachers data but course_id which is foreign key get the name of that course instead of id
-   # teachername | available days | coursename
 
 
 
->>>>>>> otherUpdates-local
+

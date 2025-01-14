@@ -8,11 +8,7 @@ def create_connection():
             user='root',# Default user for XAMPP
             password='',         # Default password is empty
             database='college',
-<<<<<<< HEAD
-            port=3306# Replace with your database name
-=======
             port=3307# Replace with your database name#3306
->>>>>>> otherUpdates-local
         )
 
         if connection.is_connected():

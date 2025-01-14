@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-def getDivisions(batch_name,noOfDivisions):
-    divisions=["A","B","C","D","E","F"]
-    for i in range(noOfDivisions):
-        pass
-=======
+
 def getDivisions(noOfDivisions):
     divisions=["A","B","C","D","E","F"]
     possible_div=[]
@@ -20,4 +15,3 @@ def getPracticalBatches(noOfPracBatches):
         possible_batches.append(batches[i])
     return possible_batches
 
->>>>>>> otherUpdates-local

@@ -6,12 +6,10 @@ import tkinter as tk
 from UI_files.batch_functions import open_add_batch_form
 from UI_files.connection import create_connection
 from UI_files.course import open_add_course_form
-<<<<<<< HEAD
+
 from UI_files.manageBatch import open_manage_batch_UI
 from UI_files.manageRoom import open_manage_room_UI
 from UI_files.manageSubject import open_manage_subject_UI
-=======
->>>>>>> otherUpdates-local
 from UI_files.manageTeacher import open_manage_teacher_UI
 from UI_files.rooms_functions import open_add_rooms_form
 from UI_files.set_timetable_attributes import open_timetable_attributes
@@ -89,11 +87,10 @@ def open_add_batch():
     open_add_batch_form(conn)
 
 def open_generate_timetable():
-<<<<<<< HEAD
-    open_timetable_attributes(app,conn)
-=======
+
     open_timetable_attributes(conn)
->>>>>>> otherUpdates-local
+
+    open_timetable_attributes(conn)
 
 def open_manage_course():
     open_manage_course_UI(conn)
@@ -101,7 +98,7 @@ def open_manage_course():
 def open_manage_teacher():
     open_manage_teacher_UI(conn)
 
-<<<<<<< HEAD
+
 def open_manage_room():
     open_manage_room_UI(conn)
 
@@ -111,8 +108,7 @@ def open_manage_subject():
 def open_manage_batch():
     open_manage_batch_UI(conn)
 
-=======
->>>>>>> otherUpdates-local
+
 
 
 
@@ -160,12 +156,12 @@ submit_button.pack(pady=20)
 submit_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage course", bootstyle="primary",command=open_manage_course)
 submit_button.pack(pady=20)
 
-<<<<<<< HEAD
-submit_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage Teacher", bootstyle="primary",command=open_manage_teacher)
-submit_button.pack(pady=20)
 
-submit_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage Room", bootstyle="primary",command=open_manage_room)
-submit_button.pack(pady=20)
+manage_teacher_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage Teacher", bootstyle="primary",command=open_manage_teacher)
+manage_teacher_button.pack(pady=20)
+
+manage_room_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage Room", bootstyle="primary",command=open_manage_room)
+manage_room_button.pack(pady=20)
 
 submit_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage Subjects", bootstyle="primary",command=open_manage_subject)
 submit_button.pack(pady=20)
@@ -175,12 +171,6 @@ submit_button.pack(pady=20)
 
 
 
-
-=======
-submit_button = ttk.Button(rightmostFrame,padding=(10,20),width=20, text="Manage teacher", bootstyle="primary",command=open_manage_teacher)
-submit_button.pack(pady=20)
-
->>>>>>> otherUpdates-local
 
 
 
